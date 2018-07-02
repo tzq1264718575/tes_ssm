@@ -1,6 +1,9 @@
 package com.tarena.entity;
 
-public class Role {
+import java.io.Serializable;
+
+public class Role implements Serializable{
+	private static final long serialVersionUID = 2350629000630798062L;
 	private String id;
 	private String name;
 	public String getId() {
@@ -14,6 +17,10 @@ public class Role {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	@Override
+	public String toString() {
+		return "Role [id=" + id + ", name=" + name + "]";
 	}
 	
 }

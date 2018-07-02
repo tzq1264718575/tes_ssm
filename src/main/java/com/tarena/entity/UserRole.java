@@ -1,6 +1,9 @@
 package com.tarena.entity;
 
-public class UserRole {
+import java.io.Serializable;
+
+public class UserRole implements Serializable{
+	private static final long serialVersionUID = 1341038472712448480L;
 	private String userId;
 	private String roleId;
 	public String getUserId() {

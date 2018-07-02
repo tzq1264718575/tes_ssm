@@ -10,13 +10,14 @@ $(function() {
 	load_nav();
 	//加载主页
 	load_main();
+	//获取内存中的header.html中id为logout_a的对象
+	
 });
 
 // 加载页面顶部工具栏
 function load_header() {
 	$('#header').load('page/header.html');
 }
-
 // 加载消息框
 function load_msg() {
 	//消息弹出框

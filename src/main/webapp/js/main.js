@@ -13,8 +13,26 @@ $(function(){
 	draw_user();
 	// 画视频统计环行图
 	draw_video();
+	logout();
+	
 });
-
+function logout() {
+	$("#logout_a").click(function() {
+		$.ajax({
+			url:basePath+"/main/logout",
+			type:"post",
+			datatype:"json",
+			success:function(r){
+				if(r.status==1){
+					window.location.href="login.html";
+				}
+			},
+			error:function(){
+				alert("请求失败");
+			}
+		});
+	});
+}
 // 关闭面板
 function close_panel(btn) {
 	$(btn).parent().parent().parent().fadeOut(200);

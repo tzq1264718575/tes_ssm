@@ -119,6 +119,14 @@ public class Page {
 	public void setRoleType(String roleType) {
 		this.roleType = roleType;
 	}
+
+	@Override
+	public String toString() {
+		return "Page [currentPage=" + currentPage + ", pageSize=" + pageSize + ", previousPage=" + previousPage
+				+ ", nextPage=" + nextPage + ", totalCount=" + totalCount + ", totalPage=" + totalPage + ", begin="
+				+ begin + ", aNum=" + aNum + ", roleKeyword=" + roleKeyword + ", userKeyword=" + userKeyword + ", data="
+				+ data + ", roleType=" + roleType + "]";
+	}
 	
 	
 	
