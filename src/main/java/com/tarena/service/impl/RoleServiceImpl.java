@@ -69,5 +69,28 @@ public class RoleServiceImpl implements RoleService{
 		r.setMessage("添加角色成功");
 		return r;
 	}
+	@Override
+	public Result updateRole(Role role) {
+		Result r=new Result();
+		int row=this.roleMapper.updateRole(role);
+		if(row==1){
+			r.setStatus(1);
+		}else{
+			r.setStatus(0);
+		}
+		return r;
+	}
+	@Override
+	public Result deleteRole(String roleId) {
+		Result r=new Result();
+		int row=roleMapper.deleteRole(roleId);
+		if(row==1){
+			r.setStatus(1);
+		}else{
+			r.setStatus(0);
+			r.setMessage("删除失败");
+		}
+		return r;
+	}
 	
 }

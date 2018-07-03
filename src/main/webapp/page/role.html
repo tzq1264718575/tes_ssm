@@ -129,7 +129,7 @@
 <!-- /tab-content-->
 
 <!-- 删除活动的Modal界面 -->
-<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="deleteModal">
   <div class="modal-dialog modal-sm">
      <div class="modal-content">
       <div class="modal-header">
@@ -140,7 +140,7 @@
                   确认删除该记录？
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">确  认</button>
+        <button type="button" class="btn btn-primary" id="delete">确  认</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">取  消</button>
       </div>
     </div>
@@ -155,16 +155,16 @@
         <h4 class="modal-title" id="myModalLabel"><strong>编 辑 角 色</strong></h4>
       </div>
       <div class="modal-body">
-      <form class="form-horizontal" action="" method="post">
+      <form class="form-horizontal" action="" method="" id="update">
         <div class="form-group">
-          <label class="col-md-3 control-label" for="coursename">角色名称:</label>
+          <label class="col-md-3 control-label" for="role_name">角色名称:</label>
           <div class="col-md-8">
-           <input type="text" id="courseName"  class="form-control">
+           <input type="text" id="role_name"  class="form-control">
           </div>
           </div>
           <div class="form-group">
             <div class="col-md-8 col-md-offset-3">
-              <button type="submit" class="btn btn-primary">确  认</button>
+              <button type="submit" class="btn btn-primary" >确  认</button>
               <button type="button" class="btn btn-primary" data-dismiss="modal">取  消</button>
             </div>
           </div>

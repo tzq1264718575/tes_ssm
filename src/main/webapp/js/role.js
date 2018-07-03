@@ -1,4 +1,5 @@
 //@ sourceURL=role.js
+var roleId;
 $(function() {
 	findRoles(1);//第一次执行时候要查询出第一页数据
 	$("#ssuo").click(function() {
@@ -8,7 +9,65 @@ $(function() {
 	$("#f").submit(function() {
 		return addRole();
 	});
+	//给修改的按钮添加事件
+	$("#update").submit(function() {
+		return updateRole();
+	});
+	$("#delete").click(function() {
+		deleteRole();
+	});
 });
+function deleteRole() {
+	$.ajax({
+		url:basePath+"/role/deleteRole/"+roleId,
+		type:"delete",
+		datatype:"json",
+		success:function(r){
+			if(r.status==1){
+				$("#role_"+roleId).remove();
+				$("#deleteModal").modal("hide");
+			}else{
+				alert(r.message);
+			}
+		},
+		error:function(){
+			alert("请求失败");
+		}
+	});
+}
+function updateRole() {
+	var newRoleName=$("#role_name").val();
+	$.ajax({
+		url:basePath+"/role/updateRole",
+		type:"post",
+		data:{"id":roleId,"name":newRoleName},
+		datatype:"json",
+		success:function(r){
+			if(r.status==1){
+				//关掉model框
+				$("#editRole").modal("toggle");
+				//更改页面的值
+				$("#role_"+roleId).find("td:eq(2)").text(newRoleName);
+				
+			}else{
+				alert(r.message);
+			}
+		},
+		error:function(){
+			alert("请求失败");
+		}
+	});
+	return false;
+}
+function updateClick(rid) {
+	roleId=rid;
+	var rName=$("#role_"+roleId).find("td:eq(2)").text();
+	$("#role_name").val(rName);
+}
+function deleteClick(rid) {
+	roleId=rid;
+	
+}
 function addRole() {
 	//获取新角色数据
 	var roleName=$("#roleName").val();
@@ -19,6 +78,7 @@ function addRole() {
 		success:function(r){
 			if(r.status==1){
 				alert(r.message);
+				window.location.href="index.html";
 			}
 		},
 		error:function(){
@@ -50,19 +110,19 @@ function findRoles(currentPage) {
 					//value是一个对象的,循环到的第n个对象
 					if(value.name!='超级管理员'&&value.name!='学员'&&value.name!='讲师'){
 						//需要加上超链接修改,删除
-						var tr='<tr>'+
+						var tr='<tr id="role_'+value.id+'">'+
 							  '<td>'+(n+1)+'</td>'+
 				              '<td>'+value.id+'</td>'+
 				              '<td>'+value.name+'</td>'+
 				              '<td>'+
-				                '<a href="" data-toggle="modal" data-target="#editRole" ><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>编辑</a>'+
-				                '<a href="" data-toggle="modal" data-target=".bs-example-modal-sm"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除</a>'+
+				                '<a href="" data-toggle="modal" onclick="updateClick(\''+value.id+'\')" data-target="#editRole" ><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>编辑</a>'+
+				                '<a href="" data-toggle="modal" onclick="deleteClick(\''+value.id+'\')" data-target=".bs-example-modal-sm"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除</a>'+
 				              '</td>'+
 				              '</tr>';
 						$("#role_table tbody").append(tr);
 					}else{
 						//不需要加上超链接修改,删除
-						var tr='<tr>'+
+						var tr='<tr id="role_'+value.id+'">'+
 				               '<td>'+(n+1)+'</td>'+
 				               '<td>'+value.id+'</td>'+
 				               '<td>'+value.name+'</td>'+

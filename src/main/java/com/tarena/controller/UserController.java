@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tarena.service.UserService;
+import com.tarena.vo.Page;
 import com.tarena.vo.Result;
 
 @Controller
@@ -24,6 +25,14 @@ public class UserController {
 		System.out.println(loginName+"---- "+password);
 		Result result=null;
 		result=userService.login(loginName,password);
+		return result;
+	}
+	@RequestMapping(value="findUsersBypage",method=RequestMethod.GET)
+	@ResponseBody
+	public Result findUsersBypage(Page page){
+		Result result=new Result();
+		result.setStatus(1);
+		result=userService.findUsersBypage(page);
 		return result;
 	}
 }

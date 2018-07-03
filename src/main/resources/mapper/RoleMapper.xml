@@ -17,4 +17,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="addRole" parameterType="Role">
 		insert into t_role(role_id,role_name) values(#{id},#{name})
 	</insert>
+	<!-- 修改角色 -->
+	<update id="updateRole" parameterType="Role">
+		update t_role set role_name=#{name} where role_id=#{id}
+	</update>
+	<!-- 删除角色 -->
+	<delete id="deleteRole" parameterType="java.lang.String">
+		delete from t_role where role_id=#{roleId}
+	</delete>
 </mapper>

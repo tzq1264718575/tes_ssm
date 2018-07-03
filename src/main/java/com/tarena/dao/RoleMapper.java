@@ -11,5 +11,7 @@ public interface RoleMapper {
 	public int getCount(Page page);
 	public List<Role> getRolesByPage(Page page);
 	public int addRole(Role role);
+	public int updateRole(Role role);
+	public int deleteRole(String roleId);
 	
 }
