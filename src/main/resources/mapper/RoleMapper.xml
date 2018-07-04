@@ -25,4 +25,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteRole" parameterType="java.lang.String">
 		delete from t_role where role_id=#{roleId}
 	</delete>
+	<!-- 查询所有角色 -->
+	<select id="findAllRoles"  resultType="Role">
+		select role_id id,role_name name from t_role
+	</select>
 </mapper>

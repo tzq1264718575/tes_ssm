@@ -63,5 +63,15 @@ function register_nav() {
 function load_script($li) {
 	var target = $li.children("a").attr("name");
 	var name = target.substring(target.lastIndexOf("/")+1, target.lastIndexOf(".html"));
+	if(name=="user"||name=="course"||name=="activity"){
+		$.getScript("js/common/ajaxfileupload.js");
+	}
 	$.getScript("js/" + name + ".js");
 }
+
+
+
+
+
+
+

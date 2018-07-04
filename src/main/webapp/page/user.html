@@ -4,7 +4,7 @@
     <span class="glyphicon glyphicon-exeport" aria-hidden="true">导入</span>
   </button>
   <!-- 页签导航 -->
-  <ul class="nav nav-tabs " role="tablist">
+  <ul class="nav nav-tabs " role="tablist"  id="updateUser">
     <li role="presentation" class="active">
       <a href="#userPanel" aria-controls="userPanel" role="tab" data-toggle="tab">列表</a>
     </li>
@@ -156,7 +156,7 @@
           <div class="media">
             <div class="media-left">
               <a href="#">
-                <img class="media-object img-circle" src="images/size.png" alt="头像">
+                <img class="media-object img-circle" src="images/size.png" alt="头像"  >
               </a>
             </div>
             <div class="media-body">
@@ -175,51 +175,51 @@
         </div>
       </div>
     </div>
-
+	
     <!-- 新增用户 -->
     <div role="tabpanel" class="tab-pane" id="addUserPanel">
       <div class="panel panel-default">
         <div class="panel-body">
-          <form class="form-horizontal" action="" method="post">
+          <form class="form-horizontal">
             <div class="form-group">
-              <label class="col-md-2 control-label" for="inputEmail">用户名:</label>
+              <label class="col-md-2 control-label" for="inputEmail_addUser">用户名:</label>
               <div class="col-md-8">
-                <input type="email" id="inputEmail" class="form-control">
+               <input type="email" id="inputEmail_addUser" class="form-control">
               </div>
             </div>
 
             <div class="form-group">
-              <label class="col-md-2 control-label" for="inputPassword">密码:</label>
+              <label class="col-md-2 control-label" for="inputPassword_addUser">密码:</label>
               <div class="col-md-8">
-                <input type="password" id="inputPassword" class="form-control">
+                <input type="password" id="inputPassword_addUser" class="form-control">
               </div>
             </div>
 
             <div class="form-group">
-              <label class="col-md-2 control-label" for="inputPassword2">确认密码:</label>
+              <label class="col-md-2 control-label" for="inputPassword2_addUser">确认密码:</label>
               <div class="col-md-8">
-                <input type="password" id="inputPassword2" class="form-control">
+                <input type="text" id="inputPassword2_addUser" class="form-control">
               </div>
             </div>
 
             <div class="form-group">
-              <label class="col-md-2 control-label" for="nickName">昵称:</label>
+              <label class="col-md-2 control-label" for="nickName_addUser">昵称:</label>
               <div class="col-md-8">
-                <input type="text" id="nickName" class="form-control">
+                <input type="text" id="nickName_addUser" class="form-control">
               </div>
             </div>
 
             <div class="form-group">
-              <label class="col-md-2 control-label" for="age">年龄:</label>
+              <label class="col-md-2 control-label" for="age_addUser">年龄:</label>
               <div class="col-md-8">
-                <input type="number" id="age" class="form-control">
+                <input type="number" id="age_addUser" class="form-control">
               </div>
             </div>
 
             <div class="form-group">
-              <label for="courseCategory" class="col-md-2 control-label">角色:</label>
+              <label for="roleCategory" class="col-md-2 control-label">角色:</label>
               <div class="col-md-8">
-                <select id="courseCategory" class="form-control">
+                <select id="roleCategory" class="form-control">
                   <option></option>
                   <option>超级管理员</option>
                   <option>讲师</option>
@@ -231,22 +231,22 @@
             <div class="form-group">
               <label class="col-md-2 control-label">性别:</label>
               <div class="col-md-8">
-                <div class="radio">
+                <div class="radio" id="sex_radio">
                   <label>
-                    <input name="user-type" type="radio" value="0">男
+                    <input name="user-type_sex" type="radio" value="男" >男
                   </label>
                   &nbsp;
                   <label>
-                    <input name="user-type" type="radio" value="1">女
+                    <input name="user-type_sex" type="radio" value="女">女
                   </label>
                 </div>
               </div>
             </div>
 
             <div class="form-group">
-              <label class="col-md-2 control-label" for="picture">头像:</label>
+              <label class="col-md-2 control-label" for="addHeadPicture">头像:</label>
               <div class="col-md-8">
-                <input type="file" id="picture">
+                <input type="file" id="addHeadPicture" name="fileName">
               </div>
             </div>
 
@@ -310,7 +310,6 @@
               <input type="email" id="inputEmail" class="form-control">
             </div>
           </div>
-
           <div class="form-group">
             <label class="col-md-3 control-label" for="inputPassword">密码:</label>
             <div class="col-md-8">

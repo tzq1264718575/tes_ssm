@@ -17,5 +17,7 @@ public interface RoleService {
 	public Result updateRole(Role role);
 
 	public Result deleteRole(String roleId);
+	//查询所有信息,给用户的角色下拉框
+	public Result findAllRoles();
 
 }

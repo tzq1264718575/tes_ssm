@@ -92,5 +92,18 @@ public class RoleServiceImpl implements RoleService{
 		}
 		return r;
 	}
+	@Override
+	public Result findAllRoles() {
+		Result r=new Result();
+		List<Role> roles=this.roleMapper.findAllRoles();
+		if(roles!=null){
+			r.setStatus(1);
+			r.setData(roles);
+		}else{
+			r.setStatus(0);
+			r.setMessage("没有角色");
+		}
+		return r;
+	}
 	
 }

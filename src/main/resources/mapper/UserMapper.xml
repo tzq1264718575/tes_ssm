@@ -32,12 +32,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		            javaType="java.util.List"
 		            resultMap="roleMap"></collection>
 	</resultMap>
-	<select id="getCount" parameterType="Page" resultType="java.lang.Integer">
+	<select id="getCountByRoleType" parameterType="Page" resultType="java.lang.Integer">
 		select count(user_id) from
 		(select role_id from t_role where role_name like #{roleType}) r
 		left join t_user_role ur on r.role_id=ur.rid left join
 		(select user_id from t_user where user_loginname like #{userKeyword} or
 				user_nickname like #{userKeyword}) u on ur.uid=u.user_id
+	</select>
+	<select id="getCountByAll" parameterType="Page" resultType="java.lang.Integer">
+		SELECT COUNT(t.user_id) FROM (SELECT user_id FROM
+		(SELECT user_id FROM t_user WHERE user_loginname LIKE #{userKeyword} OR
+				user_nickname LIKE #{userKeyword}) u
+		LEFT JOIN t_user_role ur ON u.user_id=ur.uid LEFT JOIN  t_role  r
+		 ON ur.rid=r.role_id GROUP BY user_id) t
 	</select>
 	<select id="findUsersBypage_roleName" parameterType="Page" resultMap="userMap">
 		 select
@@ -85,6 +92,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    left outer join t_user_role ur on u.user_id=ur.uid
 	    left outer join t_role r on ur.rid=r.role_id  limit #{begin},#{pageSize}
 	</select>
+	<!-- 添加用户 -->
+	<insert id="addUser" parameterType="User">
+		insert into t_user(user_id,user_loginname,user_password,user_nickname,user_age,user_sex,user_head)
+		values(#{id},#{loginName},#{password},#{nickName},#{age},#{sex},#{head})
+	</insert>
+	<!-- 添加用户角色 -->
+	<insert id="addUserRole" parameterType="UserRole">
+		insert into t_user_role(uid,rid) values(#{userId},#{roleId})
+	</insert>
 </mapper>
 
 

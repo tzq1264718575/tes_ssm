@@ -49,4 +49,11 @@ public class RoleController {
 		r=this.roleService.deleteRole(roleId);
 		return r;
 	}
+	@RequestMapping(value="findAllRoles",method=RequestMethod.GET)
+	@ResponseBody
+	public Result findAllRoles() {
+		Result r=null;
+		r=this.roleService.findAllRoles();
+		return r;
+	}
 }

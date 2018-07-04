@@ -11,7 +11,79 @@ $(function(){
 		}
 		findUsers(1);
 	});
+	//新增
+	$("#updateUser li:eq(2) a").click(function(e) {
+		e.preventDefault();
+		findAllRoles();
+	});
+	$("#addUserPanel form").submit(function() {
+		return addUser();
+	});
+	
 });
+//添加角色
+function addUser() {
+	//获取要添加的新数据
+	var loginName=$("#inputEmail_addUser").val();
+	var password1=$("#inputPassword_addUser").val();
+	var password2=$("#inputPassword2_addUser").val();
+	var nickName=$("#nickName_addUser").val();
+	var age=$("#age_addUser").val();
+	var roleId=$("#roleCategory").val();
+	var sex=$("#sex_radio input[name='user-type_sex']").val();
+	if(password1!=password2){
+		return false;
+	};
+	if(age<1){
+		return false;
+	};
+	//发送ajax异步请求
+	$.ajaxFileUpload({
+		url:basePath+"/user/newAddUser",
+		secureuri:false,
+		fileElementId:"addHeadPicture",//文件域的id
+		type:"post",
+		data:{"loginName":loginName,"password":password1,"nickName":nickName,"age":age,"sex":sex,"id":roleId},
+		dataType:"text",
+		success:function(data,status){
+			//alert(data);
+			data=data.replace(/<PRE.*?>/g,'');
+			data=data.replace("<PRE>",'');
+			data=data.replace("</PRE>",'');
+			data=data.replace(/<pre.*?>/g,'');
+			data=data.replace("<pre>",'');
+			data=data.replace("</pre>",'');
+			alert(data);
+		},
+		error:function(){
+			alert("请求失败!");
+		}
+	});
+	return false;
+}
+//查询所有角色
+function findAllRoles() {
+	$.ajax({
+		url:basePath+"/role/findAllRoles",
+		type:"get",
+		datatype:"json",
+		success:function(r){
+			if(r.status==1){
+				$("#roleCategory").html("");
+				$(r.data).each(function(index,role) {
+					console.log(role.name);
+					var option='<option value="'+role.id+'">'+role.name+'</option>';
+					$("#roleCategory").append(option);
+				});
+			}else{
+				alert(r.message);
+			}
+		},
+		error:function(){
+			alert("请求失败");
+		}
+	});
+}
 function findUsers(currentPage) {
 	//处理模糊关键字
 	var userKeyword=$("#user_find").val();
