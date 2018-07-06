@@ -1,25 +1,27 @@
 package com.tarena.service.impl;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tarena.dao.UserMapper;
-import com.tarena.entity.Role;
 import com.tarena.entity.User;
 import com.tarena.entity.UserRole;
 import com.tarena.service.UserService;
 import com.tarena.util.CommonValue;
+import com.tarena.util.ExcelUtil;
 import com.tarena.util.PageUtil;
 import com.tarena.util.PrintWriterUtil;
 import com.tarena.util.UUIDUtil;
@@ -146,4 +148,49 @@ public class UserServiceImpl implements UserService{
 		}
 		return ;
 	}
+	@Override
+	public byte[] exeport_user() {
+		byte[] data=null;
+		List<User> users = this.userMapper.findUsers();
+		//用自定义工具把users转换成字节数组以备下载
+		if(users!=null&&users.size()>0){
+			data=ExcelUtil.write2Excel(users);
+		}
+		return data;
+	}
+	/**
+	 * loginName,password,是用户输入的数据,准备吧数据吧这两个数据放到安全管理中心
+	 */
+	@Override
+	public Result login_shiro(String loginName, String password) {
+		//把这两个数据封装给shiro中的
+		Result result=new Result();
+		//Shiro的登陆操作   获取用户对象
+		Subject subject = SecurityUtils.getSubject();
+		
+		//将用户的数据封装为令牌(票)
+		UsernamePasswordToken token = new UsernamePasswordToken(loginName, password);
+		
+		try {
+			//通过用户实现登陆 
+			subject.login(token); 
+			
+			//获取真实的用户对象
+			User u = (User) subject.getPrincipal();
+			
+			//session.setAttribute("sessionUser", user);
+			subject.getSession().setAttribute("sessionUser", u);
+			//证明用户名和密码正确
+			result.setStatus(1);
+			result.setMessage("登录成功!");
+			
+		} catch (AuthenticationException e) {
+			e.printStackTrace();  //打印异常信息
+			//证明用户名和密码错误
+			result.setStatus(0);
+			result.setMessage("登录失败!");
+		}
+		return result;
+	}
+	
 }

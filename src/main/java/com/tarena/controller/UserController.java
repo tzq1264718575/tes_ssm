@@ -1,5 +1,8 @@
 package com.tarena.controller;
 
+import java.io.IOException;
+import java.io.OutputStream;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +31,8 @@ public class UserController {
 	public Result login(@PathVariable("loginName") String loginName,@PathVariable("password") String password)throws Exception{
 		System.out.println(loginName+"---- "+password);
 		Result result=null;
-		result=userService.login(loginName,password);
+		//result=userService.login(loginName,password);
+		result=this.userService.login_shiro(loginName,password);
 		return result;
 	}
 	@RequestMapping(value="findUsersBypage",method=RequestMethod.GET)
@@ -40,12 +44,26 @@ public class UserController {
 		return result;
 	}
 	@RequestMapping(value="newAddUser",method=RequestMethod.POST)
-	@ResponseBody
-	public Result addUser(User user,Role role,HttpServletResponse rep,HttpServletRequest req,
+	public void addUser(User user,Role role,HttpServletResponse rep,HttpServletRequest req,
 			MultipartFile fileName){
-		Result result=new Result();
 		userService.addUser(user,role.getId(),rep,req,fileName);
-		return result;
+	}
+	@RequestMapping(value="exeport_user",method=RequestMethod.GET)
+	public void exeport_user(HttpServletRequest req,HttpServletResponse rep){
+		try {
+			byte[] data=this.userService.exeport_user();
+			//下载data数组为excel文件
+			rep.setContentType("application/x-msdownload");
+			rep.setHeader("Content-Disposition", "attachment;fileName=alluser.xls");
+			rep.setContentLength(data.length);
+			OutputStream os=rep.getOutputStream();
+			os.write(data);
+			os.flush();
+			os.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
 

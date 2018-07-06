@@ -19,8 +19,14 @@ $(function(){
 	$("#addUserPanel form").submit(function() {
 		return addUser();
 	});
-	
+	//给导出按钮添加点击事件
+	$("#load201876926").click(function() {
+		exeport_user();
+	});
 });
+function exeport_user() {
+	window.location.href=basePath+"/user/exeport_user";
+}
 //添加角色
 function addUser() {
 	//获取要添加的新数据

@@ -17,4 +17,10 @@ public interface UserService {
 
 
 	public void addUser(User user, String roleId, HttpServletResponse rep, HttpServletRequest req, MultipartFile fileName);
+	/**
+	 * 到处excel方法
+	 */
+	public byte[] exeport_user();
+
+	public Result login_shiro(String loginName, String password);
 }

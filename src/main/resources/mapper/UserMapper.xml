@@ -7,6 +7,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="login" parameterType="User" resultType="java.lang.String">
 		select user_id id from t_user where user_loginname=#{loginName} and user_password=#{password}
 	</select>
+	<select id="findUserByUserName" parameterType="java.lang.String"
+		resultMap="userMap">
+		select user_id,user_loginname,user_password from t_user where user_loginname=#{name}		
+	</select>
 	<resultMap type="Role" id="roleMap">
 	    <!-- 注意:从表中的外键id,不能跟主表的主键id名字相同 -->
 		<id property="id" column="role_id" />
@@ -101,6 +105,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="addUserRole" parameterType="UserRole">
 		insert into t_user_role(uid,rid) values(#{userId},#{roleId})
 	</insert>
+	<select id="findUsers" resultMap="userMap">
+		select
+			u.user_id,
+			u.user_loginname,
+			u.user_logintype,
+			u.user_nickname,
+			u.user_password,
+			u.user_type,
+			u.user_head,
+			u.user_score,
+			u.user_islock,
+			u.user_pwdstate,
+			u.user_regdate,
+			u.user_age,
+			u.user_sex,
+			r.role_id,
+			r.role_name
+		from t_user u
+	    left outer join t_user_role ur on u.user_id=ur.uid
+	    left outer join t_role r on ur.rid=r.role_id 
+	</select>
+	
 </mapper>
 
 

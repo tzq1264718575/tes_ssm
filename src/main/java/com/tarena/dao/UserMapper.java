@@ -15,4 +15,8 @@ public interface UserMapper {
 	public List<User> findUsersBypage_roleAll(Page page);
 	public void addUser(User user);
 	public void addUserRole(UserRole ur);
+	//查询所有用户数据,用于导出excel文件
+	public List<User> findUsers();
+	//根据用户名查询用户信息
+	public User findUserByUserName(String username);
 }
