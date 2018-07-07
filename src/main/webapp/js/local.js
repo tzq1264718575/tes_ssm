@@ -7,7 +7,8 @@ $(function() {
 	//加载修改密码部分
 	load_pwd();
 	//加载左侧导航栏
-	load_nav();
+	//load_nav();
+	register_nav();
 	//加载主页
 	load_main();
 	//获取内存中的header.html中id为logout_a的对象

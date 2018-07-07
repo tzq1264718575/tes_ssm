@@ -23,7 +23,7 @@ function login(){
 					addCookie("loginName",loginName,5);
 				}
 				//登录成功
-				window.location.href="index.html";
+				window.location.href="index.jsp";
 			}else if(result.status==0){
 				//登录失败
 				alert(result.message);

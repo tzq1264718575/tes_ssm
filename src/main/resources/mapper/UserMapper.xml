@@ -126,7 +126,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    left outer join t_user_role ur on u.user_id=ur.uid
 	    left outer join t_role r on ur.rid=r.role_id 
 	</select>
-	
+	<select id="findRoleByUserName" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT module_name FROM t_module WHERE module_id IN (SELECT MID FROM t_user_module  WHERE uid=(SELECT user_id
+		FROM t_user WHERE user_loginname=#{name}));
+		
+	</select>
 </mapper>
 
 

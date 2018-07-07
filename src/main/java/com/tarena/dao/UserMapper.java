@@ -19,4 +19,5 @@ public interface UserMapper {
 	public List<User> findUsers();
 	//根据用户名查询用户信息
 	public User findUserByUserName(String username);
+	public List<String> findRoleByUserName(String name);
 }
